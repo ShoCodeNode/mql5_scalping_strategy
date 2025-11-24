@@ -9,10 +9,10 @@
 #property description "ATR-based Adaptive Scalping EA with Multi-Timeframe Analysis"
 
 #include <Trade\Trade.mqh>
-#include "Include\ScalpingConfig.mqh"
-#include "Include\RiskManager.mqh"
-#include "Include\SignalGenerator.mqh"
-#include "Include\TrailingManager.mqh"
+#include "..\Include\ScalpingConfig.mqh"
+#include "..\Include\RiskManager.mqh" 
+#include "..\Include\SignalGenerator.mqh"
+#include "..\Include\TrailingManager.mqh"
 
 //--- Input parameters
 input group "=== Basic Settings ==="
@@ -93,7 +93,7 @@ int OnInit()
    if(!signal_generator.Initialize(Symbol()))
    {
       Print("ERROR: Failed to initialize signal generator");
-      return INIT_FAILED;
+      return(INIT_FAILED);
    }
    
    trailing_manager.Initialize(Symbol());
@@ -109,7 +109,7 @@ int OnInit()
    Print("Max positions per pair: ", config.GetMaxPositions());
    Print("Trading sessions: London(", InpLondonStart, "-", InpLondonEnd, "), NY(", InpNewYorkStart, "-", InpNewYorkEnd, ")");
    
-   return INIT_SUCCEEDED;
+   return(INIT_SUCCEEDED);
 }
 
 //+------------------------------------------------------------------+

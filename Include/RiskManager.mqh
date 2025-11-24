@@ -98,7 +98,7 @@ double CRiskManager::CalculateLotSize(double stop_loss_pips)
    double lot_size = risk_amount / (stop_loss_pips * pip_value);
    
    // 正規化
-   return NormalizeLotSize(lot_size);
+   return(NormalizeLotSize(lot_size));
 }
 
 //+------------------------------------------------------------------+
@@ -114,7 +114,7 @@ double CRiskManager::NormalizeLotSize(double lot_size)
    
    // 最小値以下の場合
    if(lot_size < min_lot)
-      return 0.0;
+      return(0.0);
    
    // 最大値以上の場合
    if(lot_size > max_lot)
@@ -123,7 +123,7 @@ double CRiskManager::NormalizeLotSize(double lot_size)
    // ステップに合わせて調整
    lot_size = MathFloor(lot_size / lot_step) * lot_step;
    
-   return lot_size;
+   return(lot_size);
 }
 
 //+------------------------------------------------------------------+
@@ -133,21 +133,21 @@ bool CRiskManager::CanOpenPosition(string symbol)
 {
    // 口座の健全性チェック
    if(!IsAccountHealthy())
-      return false;
+      return(false);
    
    // スプレッドチェック
    if(!IsSpreadAcceptable(symbol))
-      return false;
+      return(false);
    
    // 最大ポジション数チェック
    if(CountPositions(symbol) >= m_config.GetMaxPositions())
-      return false;
+      return(false);
    
    // ドローダウンチェック  
    if(!IsDrawdownAcceptable())
-      return false;
+      return(false);
    
-   return true;
+   return(true);
 }
 
 //+------------------------------------------------------------------+
@@ -166,7 +166,7 @@ bool CRiskManager::IsSpreadAcceptable(string symbol)
    else
       spread_pips = spread * 10000; // その他
    
-   return (spread_pips <= m_config.GetMaxSpread());
+   return(spread_pips <= m_config.GetMaxSpread());
 }
 
 //+------------------------------------------------------------------+
@@ -179,13 +179,13 @@ bool CRiskManager::IsAccountHealthy(void)
    // 証拠金維持率チェック
    double margin_level = AccountInfoDouble(ACCOUNT_MARGIN_LEVEL);
    if(margin_level < 200.0 && margin_level > 0)  // 200%未満は危険
-      return false;
+      return(false);
    
    // フリーマージンチェック
    if(m_account_free_margin < 100.0)  // $100未満は危険
-      return false;
+      return(false);
    
-   return true;
+   return(true);
 }
 
 //+------------------------------------------------------------------+
@@ -194,7 +194,7 @@ bool CRiskManager::IsAccountHealthy(void)
 bool CRiskManager::IsDrawdownAcceptable(void)
 {
    double drawdown = GetCurrentDrawdown();
-   return (drawdown < 5.0);  // 5%未満
+   return(drawdown < 5.0);  // 5%未満
 }
 
 //+------------------------------------------------------------------+

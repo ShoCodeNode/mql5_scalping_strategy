@@ -169,11 +169,11 @@ bool CSignalGenerator::InitializeIndicators(string symbol)
       m_atr_handle == INVALID_HANDLE)
    {
       Print("Failed to initialize indicators for ", symbol);
-      return false;
+      return(false);
    }
    
    Print("Indicators initialized successfully for ", symbol);
-   return true;
+   return(true);
 }
 
 //+------------------------------------------------------------------+
@@ -252,22 +252,22 @@ SignalInfo CSignalGenerator::GenerateSignal(string symbol)
 bool CSignalGenerator::UpdateIndicatorData(void)
 {
    // EMA データ
-   if(CopyBuffer(m_ema_fast_handle, 0, 0, 3, m_ema_fast) != 3) return false;
-   if(CopyBuffer(m_ema_medium_handle, 0, 0, 3, m_ema_medium) != 3) return false;
-   if(CopyBuffer(m_ema_slow_handle, 0, 0, 3, m_ema_slow) != 3) return false;
-   if(CopyBuffer(m_ema_trend_handle, 0, 0, 3, m_ema_trend) != 3) return false;
+   if(CopyBuffer(m_ema_fast_handle, 0, 0, 3, m_ema_fast) != 3) return(false);
+   if(CopyBuffer(m_ema_medium_handle, 0, 0, 3, m_ema_medium) != 3) return(false);
+   if(CopyBuffer(m_ema_slow_handle, 0, 0, 3, m_ema_slow) != 3) return(false);
+   if(CopyBuffer(m_ema_trend_handle, 0, 0, 3, m_ema_trend) != 3) return(false);
    
    // RSI データ
-   if(CopyBuffer(m_rsi_handle, 0, 0, 3, m_rsi) != 3) return false;
+   if(CopyBuffer(m_rsi_handle, 0, 0, 3, m_rsi) != 3) return(false);
    
    // MACD データ
-   if(CopyBuffer(m_macd_handle, MAIN_LINE, 0, 3, m_macd_main) != 3) return false;
-   if(CopyBuffer(m_macd_handle, SIGNAL_LINE, 0, 3, m_macd_signal) != 3) return false;
+   if(CopyBuffer(m_macd_handle, MAIN_LINE, 0, 3, m_macd_main) != 3) return(false);
+   if(CopyBuffer(m_macd_handle, SIGNAL_LINE, 0, 3, m_macd_signal) != 3) return(false);
    
    // ATR データ
-   if(CopyBuffer(m_atr_handle, 0, 0, 3, m_atr) != 3) return false;
+   if(CopyBuffer(m_atr_handle, 0, 0, 3, m_atr) != 3) return(false);
    
-   return true;
+   return(true);
 }
 
 //+------------------------------------------------------------------+
@@ -353,12 +353,12 @@ bool CSignalGenerator::CheckPriceAction(ENUM_SIGNAL_TYPE signal_type)
    {
       // ハンマー・ピンバーパターン (下影が長い)
       if(lower_shadow > body_size * 2 && upper_shadow < body_size)
-         return true;
+         return(true);
       
       // 陽線のエンガルフィング
       if(rates[0].close > rates[0].open && rates[1].close < rates[1].open &&
          rates[0].open < rates[1].close && rates[0].close > rates[1].open)
-         return true;
+         return(true);
    }
    else if(signal_type == SIGNAL_SELL)
    {

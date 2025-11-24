@@ -7,6 +7,7 @@
 #property link      "https://github.com/ShoCodeNode/mql5_scalping_strategy"
 
 //--- 戦略設定
+//--- 戦略設定構造体
 struct StrategySettings
 {
    // 基本設定
@@ -161,17 +162,17 @@ bool CScalpingConfig::IsTradingTime(void)
    
    // 金曜日遅い時間の回避
    if(m_settings.AvoidFridayLate && current_day == 5 && current_hour >= 22)
-      return false;
+      return(false);
    
    // ロンドンセッション
    if(current_hour >= m_settings.LondonStartHour && current_hour < m_settings.LondonEndHour)
-      return true;
+      return(true);
       
    // ニューヨークセッション
    if(current_hour >= m_settings.NewYorkStartHour || current_hour < m_settings.NewYorkEndHour)
-      return true;
+      return(true);
       
-   return false;
+   return(false);
 }
 
 //+------------------------------------------------------------------+
@@ -184,7 +185,7 @@ bool CScalpingConfig::IsValidSymbol(string symbol)
    for(int i = 0; i < ArraySize(valid_pairs); i++)
    {
       if(symbol == valid_pairs[i])
-         return true;
+         return(true);
    }
-   return false;
+   return(false);
 }

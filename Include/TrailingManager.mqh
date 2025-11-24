@@ -254,13 +254,13 @@ void CTrailingManager::UpdatePosition(ulong ticket)
 double CTrailingManager::GetATRValue(string symbol, ENUM_TIMEFRAMES timeframe)
 {
    if(m_atr_handle == INVALID_HANDLE)
-      return 0.0;
+      return(0.0);
    
    double atr_buffer[1];
    if(CopyBuffer(m_atr_handle, 0, 1, 1, atr_buffer) != 1)
-      return 0.0;
+      return(0.0);
    
-   return atr_buffer[0];
+   return(atr_buffer[0]);
 }
 
 //+------------------------------------------------------------------+
@@ -269,7 +269,7 @@ double CTrailingManager::GetATRValue(string symbol, ENUM_TIMEFRAMES timeframe)
 bool CTrailingManager::UpdateTrailingStop(ulong ticket, double new_sl)
 {
    if(!PositionSelectByTicket(ticket))
-      return false;
+      return(false);
    
    MqlTradeRequest request = {};
    MqlTradeResult result = {};
@@ -279,7 +279,7 @@ bool CTrailingManager::UpdateTrailingStop(ulong ticket, double new_sl)
    request.sl = new_sl;
    request.tp = PositionGetDouble(POSITION_TP);
    
-   return OrderSend(request, result);
+   return(OrderSend(request, result));
 }
 
 //+------------------------------------------------------------------+
